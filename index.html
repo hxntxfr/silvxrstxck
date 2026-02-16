@@ -1,0 +1,510 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>monochrome · portfolio</title>
+  <!-- Font Awesome 6 (free) for crisp icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      background-color: #fafafa;
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+      color: #111;
+      line-height: 1.5;
+      scroll-behavior: smooth;
+    }
+
+    /* black & white core palette */
+    :root {
+      --bg: #ffffff;
+      --text: #1e1e1e;
+      --soft-bg: #f0f0f0;
+      --border-light: #d4d4d4;
+      --accent: #2b2b2b;
+      --card-shadow: 0 20px 30px -10px rgba(0, 0, 0, 0.05), 0 8px 15px -6px rgba(0, 0, 0, 0.1);
+      --transition: all 0.25s cubic-bezier(0.2, 0, 0, 1);
+    }
+
+    /* dark mode toggle preference – still pure bw */
+    @media (prefers-color-scheme: dark) {
+      body {
+        background-color: #121212;
+        color: #ededed;
+      }
+      :root {
+        --bg: #121212;
+        --text: #eaeaea;
+        --soft-bg: #262626;
+        --border-light: #3d3d3d;
+        --accent: #e0e0e0;
+        --card-shadow: 0 20px 30px -10px rgba(255, 255, 255, 0.02), 0 8px 15px -6px rgba(255, 255, 255, 0.05);
+      }
+    }
+
+    body {
+      background-color: var(--bg);
+      color: var(--text);
+    }
+
+    /* typography */
+    h1, h2, h3 {
+      font-weight: 500;
+      letter-spacing: -0.02em;
+    }
+
+    h2 {
+      font-size: 2.5rem;
+      margin-bottom: 2.5rem;
+      border-bottom: 2px solid var(--border-light);
+      padding-bottom: 0.5rem;
+      display: inline-block;
+    }
+
+    .container {
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: 0 2rem;
+    }
+
+    /* header / nav */
+    .navbar {
+      padding: 1.5rem 0;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      border-bottom: 1px solid var(--border-light);
+    }
+
+    .logo {
+      font-size: 1.8rem;
+      font-weight: 600;
+      letter-spacing: -0.03em;
+      text-decoration: none;
+      color: var(--text);
+    }
+    .logo i {
+      margin-right: 0.4rem;
+      font-size: 2rem;
+      vertical-align: middle;
+      color: var(--text);
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 2.5rem;
+      font-size: 1.1rem;
+    }
+    .nav-links a {
+      text-decoration: none;
+      color: var(--text);
+      font-weight: 400;
+      position: relative;
+    }
+    .nav-links a::after {
+      content: '';
+      position: absolute;
+      width: 0;
+      height: 1px;
+      bottom: -4px;
+      left: 0;
+      background-color: var(--text);
+      transition: width 0.3s;
+    }
+    .nav-links a:hover::after {
+      width: 100%;
+    }
+
+    /* hero section */
+    .hero {
+      padding: 6rem 0 4rem 0;
+      display: flex;
+      flex-direction: column;
+      animation: fadeSlideUp 1s ease;
+    }
+    .hero h1 {
+      font-size: 4.5rem;
+      line-height: 1.1;
+      font-weight: 600;
+      max-width: 900px;
+    }
+    .hero .highlight {
+      font-style: italic;
+      border-bottom: 3px solid var(--text);
+    }
+    .hero p {
+      font-size: 1.4rem;
+      margin-top: 1.5rem;
+      max-width: 650px;
+      color: #555;
+    }
+    @media (prefers-color-scheme: dark) {
+      .hero p { color: #aaa; }
+    }
+
+    /* service / skill grid (icons + label) */
+    .skills-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+      gap: 1.8rem;
+      margin: 4rem 0 3rem;
+    }
+
+    .skill-card {
+      background: transparent;
+      border: 1.5px solid var(--border-light);
+      padding: 2rem 1rem;
+      text-align: center;
+      transition: var(--transition);
+      cursor: default;
+      border-radius: 28px;
+      box-shadow: var(--card-shadow);
+    }
+    .skill-card:hover {
+      transform: translateY(-6px);
+      background-color: var(--soft-bg);
+      border-color: var(--text);
+    }
+    .skill-card i {
+      font-size: 3rem;
+      margin-bottom: 1rem;
+      color: var(--text);
+    }
+    .skill-card h3 {
+      font-size: 1.3rem;
+      font-weight: 450;
+    }
+
+    /* portfolio masonry (work items) */
+    .portfolio-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 2rem;
+      margin: 3rem 0 5rem;
+    }
+
+    .work-item {
+      background: var(--soft-bg);
+      border: 1px solid var(--border-light);
+      padding: 2rem 1.5rem;
+      border-radius: 2rem;
+      transition: var(--transition);
+      box-shadow: var(--card-shadow);
+      animation: scaleIn 0.6s ease backwards;
+      animation-delay: calc(0.1s * var(--i, 1));
+    }
+    .work-item:hover {
+      transform: scale(0.98);
+      border-color: var(--text);
+    }
+    .work-icon {
+      font-size: 2.8rem;
+      margin-bottom: 1.3rem;
+    }
+    .work-item h3 {
+      font-size: 1.8rem;
+      font-weight: 450;
+      margin-bottom: 0.3rem;
+    }
+    .work-tag {
+      font-size: 0.9rem;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      color: #5a5a5a;
+      border-bottom: 1px dashed var(--border-light);
+      padding-bottom: 1rem;
+      margin-bottom: 1rem;
+    }
+    @media (prefers-color-scheme: dark) {
+      .work-tag { color: #a0a0a0; }
+    }
+    .work-desc {
+      font-size: 1rem;
+      opacity: 0.8;
+    }
+
+    /* about + extra */
+    .about-wrap {
+      display: flex;
+      gap: 4rem;
+      margin: 4rem 0;
+      flex-wrap: wrap;
+    }
+    .about-text {
+      flex: 2;
+      min-width: 280px;
+    }
+    .about-text p {
+      font-size: 1.25rem;
+      margin-bottom: 1.5rem;
+    }
+    .mono-tools {
+      flex: 1;
+      border-left: 2px solid var(--border-light);
+      padding-left: 2rem;
+    }
+    .mono-tools ul {
+      list-style: none;
+    }
+    .mono-tools li {
+      margin-bottom: 1.2rem;
+      font-size: 1.2rem;
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+    .mono-tools i {
+      width: 2rem;
+      font-size: 1.8rem;
+    }
+
+    /* contact / footer */
+    .contact-bar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      border-top: 1px solid var(--border-light);
+      padding: 2.5rem 0;
+      margin-top: 2rem;
+    }
+    .social a {
+      color: var(--text);
+      font-size: 1.7rem;
+      margin-left: 2rem;
+      transition: opacity 0.2s;
+    }
+    .social a:hover {
+      opacity: 0.5;
+    }
+    .copyright {
+      font-size: 0.95rem;
+      opacity: 0.7;
+    }
+
+    /* animations */
+    @keyframes fadeSlideUp {
+      0% { opacity: 0; transform: translateY(25px); }
+      100% { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes scaleIn {
+      0% { opacity: 0; transform: scale(0.9); }
+      100% { opacity: 1; transform: scale(1); }
+    }
+
+    /* responsive */
+    @media (max-width: 750px) {
+      h2 { font-size: 2.2rem; }
+      .hero h1 { font-size: 3rem; }
+      .navbar { flex-direction: column; gap: 1rem; }
+      .nav-links { gap: 1.5rem; flex-wrap: wrap; justify-content: center; }
+      .about-wrap { flex-direction: column; }
+      .mono-tools { border-left: none; padding-left: 0; }
+      .contact-bar { flex-direction: column; gap: 1.5rem; align-items: flex-start; }
+      .social a { margin-left: 0; margin-right: 1.5rem; }
+    }
+
+    /* small touches */
+    .btn-outline {
+      border: 1.5px solid var(--text);
+      background: transparent;
+      padding: 0.6rem 2rem;
+      border-radius: 40px;
+      font-weight: 500;
+      cursor: pointer;
+      transition: 0.2s;
+      color: var(--text);
+      text-decoration: none;
+      display: inline-block;
+    }
+    .btn-outline:hover {
+      background: var(--text);
+      color: var(--bg);
+    }
+  </style>
+</head>
+<body>
+
+<div class="container">
+
+  <!-- header with icon -->
+  <nav class="navbar">
+    <a href="#" class="logo">
+      <i class="fas fa-code"></i> mono::work
+    </a>
+    <div class="nav-links">
+      <a href="#">work</a>
+      <a href="#">studio</a>
+      <a href="#">insights</a>
+      <a href="#">connect</a>
+    </div>
+  </nav>
+
+  <!-- hero headline (web design, image design, etc) -->
+  <div class="hero">
+    <h1>
+      <span class="highlight">pixel</span> & logic<br>crafted in monochrome.
+    </h1>
+    <p>web design · image design · frontend · backend · mobile · python/java</p>
+    <div style="margin-top: 2.5rem;">
+      <a href="#" class="btn-outline"><i class="fas fa-arrow-down" style="margin-right: 8px;"></i>explore work</a>
+    </div>
+  </div>
+
+  <!-- skills / domains (icons for each) exactly matching request -->
+  <div class="skills-grid">
+    <div class="skill-card"><i class="fas fa-paint-brush"></i><h3>web design</h3></div>
+    <div class="skill-card"><i class="fas fa-palette"></i><h3>image design</h3></div>
+    <div class="skill-card"><i class="fas fa-laptop-code"></i><h3>frontend dev</h3></div>
+    <div class="skill-card"><i class="fas fa-server"></i><h3>backend dev</h3></div>
+    <div class="skill-card"><i class="fas fa-mobile-alt"></i><h3>mobile dev</h3></div>
+    <div class="skill-card"><i class="fab fa-python"></i><h3>python</h3></div>
+    <div class="skill-card"><i class="fab fa-java"></i><h3>java</h3></div>
+  </div>
+
+  <!-- portfolio section (work items with icons and tags) -->
+  <h2><i class="fas fa-th-large" style="margin-right: 12px;"></i>selected projects</h2>
+  <div class="portfolio-grid">
+    <!-- item 1 - web design -->
+    <div class="work-item" style="--i:1">
+      <div class="work-icon"><i class="fas fa-globe"></i></div>
+      <h3>avant garde</h3>
+      <div class="work-tag">web design · 2025</div>
+      <p class="work-desc">Minimal portfolio for a design studio. monochrome grid with bold typography.</p>
+    </div>
+    <!-- item 2 - image design -->
+    <div class="work-item" style="--i:2">
+      <div class="work-icon"><i class="fas fa-camera-retro"></i></div>
+      <h3>silhouette</h3>
+      <div class="work-tag">image design · 2024</div>
+      <p class="work-desc">Generative black & white visual identity, high‑contrast compositions.</p>
+    </div>
+    <!-- item 3 - frontend -->
+    <div class="work-item" style="--i:3">
+      <div class="work-icon"><i class="fas fa-code"></i></div>
+      <h3>edge UI</h3>
+      <div class="work-tag">frontend dev · 2025</div>
+      <p class="work-desc">Responsive dashboard with animated transitions and micro-interactions.</p>
+    </div>
+    <!-- item 4 - backend -->
+    <div class="work-item" style="--i:4">
+      <div class="work-icon"><i class="fas fa-database"></i></div>
+      <h3>flow core</h3>
+      <div class="work-tag">backend dev · 2024</div>
+      <p class="work-desc">RESTful API & serverless functions for high‑traffic mobile app.</p>
+    </div>
+    <!-- item 5 - mobile dev -->
+    <div class="work-item" style="--i:5">
+      <div class="work-icon"><i class="fas fa-mobile"></i></div>
+      <h3>mono mart</h3>
+      <div class="work-tag">mobile dev · 2023</div>
+      <p class="work-desc">Cross‑platform e‑commerce app with SwiftUI & Kotlin composes.</p>
+    </div>
+    <!-- item 6 - python -->
+    <div class="work-item" style="--i:6">
+      <div class="work-icon"><i class="fab fa-python"></i></div>
+      <h3>py tools</h3>
+      <div class="work-tag">python · 2025</div>
+      <p class="work-desc">Data processing pipelines and computer vision scripts.</p>
+    </div>
+    <!-- item 7 - java (extra) -->
+    <div class="work-item" style="--i:7">
+      <div class="work-icon"><i class="fab fa-java"></i></div>
+      <h3>spring batch</h3>
+      <div class="work-tag">java · 2024</div>
+      <p class="work-desc">Scalable microservices with Spring Boot and Kafka.</p>
+    </div>
+    <!-- item 8 - hybrid: full-stack -->
+    <div class="work-item" style="--i:8">
+      <div class="work-icon"><i class="fas fa-layer-group"></i></div>
+      <h3>full-stack kit</h3>
+      <div class="work-tag">web dev · 2025</div>
+      <p class="work-desc">Vue + Node + Postgres starter for rapid monochrome MVPs.</p>
+    </div>
+  </div>
+
+  <!-- extra about + tools (animations included on scroll – simple fade with js) -->
+  <div class="about-wrap" id="about">
+    <div class="about-text">
+      <h2 style="border-bottom: none; display: block; padding-bottom: 0;"><i class="fas fa-user"></i> about / approach</h2>
+      <p>I blend design & engineering to create crisp, functional work. Every project is treated as a system — from image design to backend logic. This portfolio reflects a black & white philosophy: reduce noise, amplify signal.</p>
+      <p>Currently exploring generative visuals, mobile haptics, and pythonic automation.</p>
+    </div>
+    <div class="mono-tools">
+      <ul>
+        <li><i class="fas fa-pencil-ruler"></i> figma / illustrator</li>
+        <li><i class="fas fa-code"></i> react / vue / svelte</li>
+        <li><i class="fas fa-terminal"></i> node / django / spring</li>
+        <li><i class="fas fa-mobile"></i> swift / kotlin / flutter</li>
+        <li><i class="fab fa-python"></i> python (numpy, opencv)</li>
+        <li><i class="fab fa-java"></i> java (quarkus, kafka)</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- contact / footer area -->
+  <div class="contact-bar">
+    <div class="copyright">
+      <i class="far fa-copyright"></i> 2025 mono::work — all grey areas reserved
+    </div>
+    <div class="social">
+      <a href="#" aria-label="GitHub"><i class="fab fa-github"></i></a>
+      <a href="#" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+      <a href="#" aria-label="Dribbble"><i class="fab fa-dribbble"></i></a>
+      <a href="#" aria-label="Email"><i class="fas fa-envelope"></i></a>
+    </div>
+  </div>
+
+</div>
+
+<!-- simple javascript: scroll animation trigger (add fade to about) and maybe some hover micro -->
+<script>
+  (function() {
+    // Just to enhance the monochrome feeling: add a class to body when scrolling 
+    // for possible future effects, also ensure work-item animations use intersection observer
+    const workItems = document.querySelectorAll('.work-item');
+    
+    // If you want to re-animate on scroll, but they are already visible.
+    // Instead, we add a subtle motion effect to icons on hover via JS (optional)
+    // But we keep it minimal.
+
+    // Intersection observer to fade in about area (already visible but add micro effect)
+    const aboutSection = document.querySelector('#about');
+    if (aboutSection) {
+      aboutSection.style.opacity = '0';
+      aboutSection.style.transition = 'opacity 0.8s ease';
+      
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.style.opacity = '1';
+            observer.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.2 });
+      observer.observe(aboutSection);
+    }
+
+    // add subtle parallax / tilt on skill cards? no, keep minimal, but we add an animation 
+    // on document load for hero (already). set a tiny timeout to fix any glitch.
+    window.addEventListener('load', () => {
+      document.body.style.animation = 'none';
+      // small heartbeat: ensure about opacity if observer fails
+      if (aboutSection) aboutSection.style.opacity = '1';
+    });
+
+    // add dynamic year in footer
+    document.querySelector('.copyright').innerHTML = `<i class="far fa-copyright"></i> ${new Date().getFullYear()} mono::work — all grey areas reserved`;
+  })();
+</script>
+
+<!-- add a second style for better readability (prefers dark/light is already) -->
+</body>
+</html>
