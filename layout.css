@@ -411,3 +411,16 @@ bdg[js] {
     background: rgba(255, 174, 0, 1);
     color: black
 }
+.perlin {
+    width: 200px;
+    height: 200px;
+    display: block;
+    margin: 0 auto;
+    filter: url('#noise') grayscale(1); /* Применяем шум и Ч/Б */
+    transition: filter 0.2s ease;
+}
+
+/* Добавим легкое свечение при наведении для усиления эффекта */
+.perlin:hover {
+    filter: url('#noise') grayscale(0.8) drop-shadow(0 0 8px rgba(255,255,255,0.3));
+}
