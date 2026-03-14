@@ -258,7 +258,7 @@ h2 {
     transparent 100%
   );
 }
-}
+
 
 
 /* about + extra */
@@ -363,7 +363,7 @@ h2 {
 }
 mono {
   background: linear-gradient(to right, #333, #666, #aaa, #999, #555, #333);
-  -webkit-background-clip: text;
+  background-clip: text;
   background-size: 200% 100%; /* Makes gradient larger than container */
   -webkit-text-fill-color: transparent;
   animation: mono 5s linear infinite; /* Add animation */
@@ -423,4 +423,38 @@ bdg[js] {
 /* Добавим легкое свечение при наведении для усиления эффекта */
 .perlin:hover {
     filter: url('#noise') grayscale(0.8) drop-shadow(0 0 8px rgba(255,255,255,0.3));
+}
+
+.grid2r {
+    grid-template-rows: repeat(2, 1fr)!important;
+    grid-template-columns: repeat(1, 1fr);
+}
+.flex {
+    display: flex;
+    align-items: center;
+}
+.grid2r .details {
+    width: -webkit-fill-available;
+}
+.grid2r .avatar {
+    height: 128px;
+    width: 128px;
+    margin-right: 20px;
+}
+.grid2r .avatar img {
+    border-radius: 50%;
+}
+.grid2r .name {
+    font-weight: 600;
+    font-size: 1.5em;
+}
+.grid2r .dates {
+    margin-top: 10px;
+    opacity: 0.7;
+}
+.skill-card:has(.avatar) {
+    padding: 2rem!important;
+}
+.grid2r .button svg {
+    margin-left: 10px;
 }
