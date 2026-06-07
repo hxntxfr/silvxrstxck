@@ -411,23 +411,32 @@ bdg[js] {
     background: rgba(255, 174, 0, 1);
     color: black
 }
+bdg[php] {
+    background: #696d9e;
+    color: black
+}
 .perlin {
     width: 200px;
     height: 200px;
     display: block;
     margin: 0 auto;
-    filter: url('#noise') grayscale(1); /* Применяем шум и Ч/Б */
+    filter: url('#noise') grayscale(1);
     transition: filter 0.2s ease;
 }
 
-/* Добавим легкое свечение при наведении для усиления эффекта */
 .perlin:hover {
     filter: url('#noise') grayscale(0.8) drop-shadow(0 0 8px rgba(255,255,255,0.3));
 }
 
 .grid2r {
-    grid-template-rows: repeat(2, 1fr)!important;
+    grid-template-rows: repeat(1, 1fr)!important;
     grid-template-columns: repeat(1, 1fr);
+    display: grid;
+}
+.grid2c {
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: repeat(1, 1fr)!important;
+    display: grid;
 }
 .flex {
     display: flex;
@@ -436,6 +445,7 @@ bdg[js] {
 .grid2r .details {
     width: -webkit-fill-available;
 }
+
 .grid2r .avatar {
     height: 128px;
     width: 128px;
@@ -457,4 +467,35 @@ bdg[js] {
 }
 .grid2r .button svg {
     margin-left: 10px;
+}
+.demo-functions {
+    background: transparent;
+    padding: 0px 0px 2rem 2rem;
+    transition: var(--transition);
+    cursor: default;
+    border-radius: 14px;
+}
+.demo-functions .function {
+    display: flex;
+    align-items: center;
+    margin-bottom: 4px;
+
+}
+.demo-functions .function .point {
+    
+    border: 1.5px solid var(--border-light);
+    border-radius: 50%;
+    width: 10px;
+    content: "";
+    margin-right: 7px;
+    margin-bottom: 2px;
+    height: 10px;
+    display: flex;
+}
+p[small] {
+    opacity: 0.7;
+    font-size: 14px;
+}
+.margin-bottom-2em {
+    margin-bottom: 2em;
 }
