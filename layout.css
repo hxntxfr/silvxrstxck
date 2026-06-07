@@ -346,6 +346,7 @@ h2 {
     .skill-card .button { display: flex; justify-content: center; margin-top: 10px; }
     .skill-card .flex { display: block!important; }
     .skill-card .avatar { width: -webkit-fill-available!important; }
+    .portfolio-grid, .skills-grid { grid-template-columns: none!important; }
 }
 
 /* small touches */
