@@ -340,6 +340,7 @@ h2 {
     .mono-tools { border-left: none; padding-left: 0; }
     .contact-bar { flex-direction: column; gap: 1.5rem; align-items: flex-start; }
     .social a { margin-left: 0; margin-right: 15px; }
+    .grid2c:has(.about-text) { display: block!important;}
 }
 
 /* small touches */
