@@ -343,6 +343,7 @@ h2 {
     .grid2c:has(.about-text) { display: block!important;}
     .hero-btns { display: block!important; }
     .hero-btns .btn-outline { margin-top: 10px; }
+    .skill-card .button { display: flex; justify-content: center; }
 }
 
 /* small touches */
@@ -454,21 +455,21 @@ bdg[php] {
     width: 128px;
     margin-right: 20px;
 }
-.grid2r .avatar img {
+.skill-card .avatar img {
     border-radius: 50%;
 }
-.grid2r .name {
+.skill-card .name {
     font-weight: 600;
     font-size: 1.5em;
 }
-.grid2r .dates {
+.skill-card .dates {
     margin-top: 10px;
     opacity: 0.7;
 }
 .skill-card:has(.avatar) {
     padding: 2rem!important;
 }
-.grid2r .button svg {
+.skill-card .button svg {
     margin-left: 10px;
 }
 .demo-functions {
