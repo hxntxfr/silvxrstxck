@@ -446,7 +446,7 @@ bdg[php] {
     width: -webkit-fill-available;
 }
 
-.grid2r .avatar {
+.skill-card .avatar {
     height: 128px;
     width: 128px;
     margin-right: 20px;
