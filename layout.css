@@ -343,7 +343,9 @@ h2 {
     .grid2c:has(.about-text) { display: block!important;}
     .hero-btns { display: block!important; }
     .hero-btns .btn-outline { margin-top: 10px; }
-    .skill-card .button { display: flex; justify-content: center; }
+    .skill-card .button { display: flex; justify-content: center; margin-top: 10px; }
+    .skill-card .flex { display: block!important; }
+    .skill-card .avatar { width: -webkit-fill-available!important; }
 }
 
 /* small touches */
