@@ -446,7 +446,7 @@ bdg[php] {
     display: flex;
     align-items: center;
 }
-.grid2r .details {
+.skill-card .details {
     width: -webkit-fill-available;
 }
 
